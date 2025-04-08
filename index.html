@@ -1,179 +1,95 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Melina Pahadi Resume</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Colorful Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        html,
-        body,
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-family: "Roboto", sans-serif
+        body {
+            font-family: 'Inter', sans-serif;
         }
     </style>
 </head>
 
-<body class="w3-light-grey">
+<body
+    class="bg-gradient-to-br from-green-400 to-yellow-300 text-white flex justify-center items-center min-h-screen py-10">
+    <div
+        class="container mx-auto px-4 py-8 rounded-lg shadow-2xl bg-white/10 backdrop-blur-md border border-white/20 max-w-3xl">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-white mb-4 animate__animated animate__fadeInDown">
+                <span class="bg-gradient-to-r from-teal-400 to-emerald-500 text-transparent bg-clip-text">
+                    Jane Doe
+                </span>
+            </h1>
+            <p class="text-lg text-gray-200 animate__animated animate__fadeIn">Software Developer & Designer</p>
+        </header>
 
-    <!-- Page Container -->
-    <div class="w3-content w3-margin-top" style="max-width:1400px;">
-
-        <!-- The Grid -->
-        <div class="w3-row-padding">
-
-            <!-- Left Column -->
-            <div class="w3-third">
-
-                <div class="w3-white w3-text-grey w3-card-4">
-                    <div class="w3-display-container">
-                        <img src="pic.png" style="width:100%" alt="Avatar">
-                        <div class="w3-display-bottomleft w3-container w3-text-black">
-                            <h2>Melina Pahadi</h2>
-                        </div>
-                    </div>
-                    <div class="w3-container">
-                        <p><i
-                                class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>melinapahadi641@gmail.com
-                        </p>
-                        <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>Sukedhara, Kathmandu,
-                            Nepal</p>
-                        <hr>
-
-                        <p class="w3-large"><b><i
-                                    class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Skills</b></p>
-                        <p>Interpersonal Skills</p>
-                        <div class="w3-light-grey w3-round-xlarge w3-small">
-                            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:85%">85%</div>
-                        </div>
-                        <p>Organizational Skills</p>
-                        <div class="w3-light-grey w3-round-xlarge w3-small">
-                            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:80%">80%</div>
-                        </div>
-                        <p>Digital Marketing Skills</p>
-                        <div class="w3-light-grey w3-round-xlarge w3-small">
-                            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:75%">75%</div>
-                        </div>
-                        <p>Accounting Skills</p>
-                        <div class="w3-light-grey w3-round-xlarge w3-small">
-                            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:80%">80%</div>
-                        </div>
-                        <br>
-
-                        <p class="w3-large w3-text-theme"><b><i
-                                    class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Languages</b></p>
-                        <p>English</p>
-                        <div class="w3-light-grey w3-round-xlarge">
-                            <div class="w3-round-xlarge w3-teal" style="height:24px;width:100%"></div>
-                        </div>
-                        <p>Nepali</p>
-                        <div class="w3-light-grey w3-round-xlarge">
-                            <div class="w3-round-xlarge w3-teal" style="height:24px;width:100%"></div>
-                        </div>
-                        <br>
-
-                        <p class="w3-large w3-text-theme"><b><i
-                                    class="fa fa-book fa-fw w3-margin-right w3-text-teal"></i>Hobbies</b></p>
-                        <p>Reading Books</p>
-                        <ul>
-                            <li>The Alchemist by Paulo Coelho</li>
-                            <li>To Kill a Mockingbird by Harper Lee</li>
-                            <li>1984 by George Orwell</li>
-                            <li>Pride and Prejudice by Jane Austen</li>
-                            <li>The Great Gatsby by F. Scott Fitzgerald</li>
-                        </ul>
-                    </div>
-                </div><br>
-
-                <!-- End Left Column -->
+        <main class="text-center mb-8">
+            <div class="animate__animated animate__fadeIn" style="animation-delay: 0.2s;">
+                <h2 class="text-2xl font-semibold text-white mb-3">About Me</h2>
+                <p class="text-gray-200 mb-6 text-lg">
+                    I'm a passionate software developer and designer, dedicated to creating beautiful and functional
+                    digital experiences.
+                    I love combining technology and art to bring ideas to life.
+                </p>
             </div>
+            <button id="cta-button"
+                class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold rounded-full px-8 py-3 shadow-lg hover:shadow-xl transition-all duration-300 animate__animated animate__pulse animate__infinite">
+                <span class="flex items-center gap-2">
+                    <i class="fas fa-arrow-right"></i>
+                    Get in Touch
+                </span>
+            </button>
 
-            <!-- Right Column -->
-            <div class="w3-twothird">
-
-                <div class="w3-container w3-card w3-white w3-margin-bottom">
-                    <h2 class="w3-text-grey w3-padding-16"><i
-                            class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Experience</h2>
-                    <div class="w3-container">
-                        <h5 class="w3-opacity"><b>Financial Account</b></h5>
-                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2023 - Present</h6>
-                        <p>Nabil Bank</p>
-                        <hr>
-                    </div>
-                    <div class="w3-container">
-                        <h5 class="w3-opacity"><b>Assistant Account Intern</b></h5>
-                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>6 months ago -
-                            Present</h6>
-                        <p>Chill Tech</p>
-                        <hr>
-                    </div>
-                </div>
-
-                <div class="w3-container w3-card w3-white">
-                    <h2 class="w3-text-grey w3-padding-16"><i
-                            class="fa fa-graduation-cap fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Education
-                    </h2>
-                    <div class="w3-container">
-                        <h5 class="w3-opacity"><b>Bachelor of Business Administration (BBA)</b></h5>
-                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2022 - 2026</h6>
-                        <p>Texas College of Management and IT, Lincoln University</p>
-                        <hr>
-                    </div>
-                </div>
-
-
-                <div class="w3-container w3-card w3-white">
-                    <h2 class="w3-text-grey w3-padding-16"><i
-                            class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Achievement,
-                        Training and
-                        Development</h2>
-                    <div class="w3-container">
-                        <h5 class="w3-opacity"><b>Advance Excel</b></h5>
-                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>February, 2024
-                        </h6>
-                        <p></p>
-                        <hr>
-                    </div>
-
-                    <div class="w3-container">
-                        <h5 class="w3-opacity"><b>Digital Marketing Training</b></h5>
-                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2 weeks, 2
-                            hours/day</h6>
-                        <p></p>
-                        <hr>
-                    </div>
-                    <!-- Add more achievements and trainings here -->
-                </div>
-
-
-                <!-- End Right Column -->
+            <div class="flex justify-center gap-4 mt-6 animate__animated animate__fadeIn"
+                style="animation-delay: 0.4s;">
+                <a href="#" class="text-white hover:text-blue-300 transition-colors duration-300 text-2xl"
+                    aria-label="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="text-white hover:text-indigo-400 transition-colors duration-300 text-2xl"
+                    aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="#" class="text-white hover:text-pink-400 transition-colors duration-300 text-2xl"
+                    aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="text-white hover:text-gray-300 transition-colors duration-300 text-2xl"
+                    aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
             </div>
+        </main>
 
-            <!-- End Grid -->
-        </div>
-
-        <!-- End Page Container -->
+        <footer class="text-center py-6 border-t border-white/20 animate__animated animate__fadeInUp"
+            style="animation-delay: 0.6s;">
+            <p class="text-gray-300 text-md">
+                &copy; 2024 Jane Doe. All rights reserved.
+            </p>
+        </footer>
     </div>
 
-    <footer class="w3-container w3-teal w3-center w3-margin-top">
-        <p>Find me on social media.</p>
-        <i class="fa fa-facebook-official w3-hover-opacity"></i>
-        <i class="fa fa-instagram w3-hover-opacity"></i>
-        <i class="fa fa-snapchat w3-hover-opacity"></i>
-        <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-        <i class="fa fa-twitter w3-hover-opacity"></i>
-        <i class="fa fa-linkedin w3-hover-opacity"></i>
-        <p>You're braver than you believe, and stronger than you seem, and smarter than you think :)</p>
-    </footer>
+    <script>
+        // Simple script for demonstration.  You can add more interactivity here.
+        document.addEventListener('DOMContentLoaded', () => {
+            const heading = document.querySelector('h1');
+            heading.classList.add('animate__animated', 'animate__fadeInDown');
 
+            const ctaButton = document.getElementById('cta-button');
+            ctaButton.addEventListener('click', () => {
+                // You can add functionality here, like scrolling to a contact section or opening a modal
+                alert('Contact section coming soon!');
+            });
+        });
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </body>
 
 </html>
