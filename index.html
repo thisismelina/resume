@@ -1,116 +1,663 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@sneha</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            overflow: hidden; /* Prevent scrollbars during animation */
-        }
-        #space-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-        .content {
-            position: relative; /* Allows content to be positioned above the canvas */
-            z-index: 1;
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Melina Pahadi — Business Intelligence & Data Analytics</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --navy: #0f2240;
+    --teal: #0d9488;
+    --teal-light: #14b8a6;
+    --teal-pale: #ccfbf1;
+    --slate: #334155;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --bg: #ffffff;
+    --white: #ffffff;
+    --accent-gold: #f59e0b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--slate);
+    overflow-x: hidden;
+  }
+  h1, h2, h3 { font-family: 'DM Serif Display', serif; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 1.5rem;
+  }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.25rem; color: var(--navy); letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--teal); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.875rem; font-weight: 500; color: var(--slate);
+    text-decoration: none; letter-spacing: 0.01em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--teal); }
+  .nav-cta {
+    background: var(--navy); color: white !important;
+    padding: 0.5rem 1.25rem; border-radius: 6px;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--teal) !important; color: white !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 24px; height: 2px; background: var(--navy); border-radius: 2px; transition: 0.3s; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    background: linear-gradient(135deg, var(--navy) 0%, #1a3a5c 60%, #0d4a5a 100%);
+    position: relative; overflow: hidden;
+    padding: 8rem 1.5rem 5rem;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(13,148,136,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(13,148,136,0.08) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-blob {
+    position: absolute; border-radius: 50%;
+    filter: blur(80px); opacity: 0.18;
+  }
+  .blob1 { width: 500px; height: 500px; background: var(--teal); top: -100px; right: -100px; }
+  .blob2 { width: 300px; height: 300px; background: #2563eb; bottom: 50px; left: -50px; }
+  .hero-inner {
+    max-width: 1100px; margin: 0 auto; position: relative; z-index: 2;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(13,148,136,0.2); border: 1px solid rgba(13,148,136,0.4);
+    color: var(--teal-light); font-size: 0.8rem; font-weight: 500;
+    padding: 0.35rem 0.9rem; border-radius: 100px; margin-bottom: 1.5rem;
+    letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .hero h1 {
+    font-size: clamp(2.5rem, 5vw, 3.75rem);
+    color: white; line-height: 1.1; margin-bottom: 1.25rem;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 em { color: var(--teal-light); font-style: normal; }
+  .hero-desc {
+    color: rgba(255,255,255,0.72); font-size: 1.05rem; line-height: 1.75;
+    margin-bottom: 2rem; font-weight: 300;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--teal); color: white;
+    padding: 0.85rem 2rem; border-radius: 8px;
+    font-weight: 600; font-size: 0.95rem; text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(13,148,136,0.4);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(13,148,136,0.5); }
+  .btn-outline {
+    border: 1.5px solid rgba(255,255,255,0.3); color: white;
+    padding: 0.85rem 2rem; border-radius: 8px;
+    font-weight: 500; font-size: 0.95rem; text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--teal-light); background: rgba(13,148,136,0.1); }
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2.5rem;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px; padding: 1rem;
+  }
+  .stat-num { font-family: 'DM Serif Display', serif; font-size: 1.75rem; color: var(--teal-light); }
+  .stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.55); margin-top: 0.25rem; }
+
+  /* HERO RIGHT - Visual card */
+  .hero-visual {
+    display: flex; justify-content: center; align-items: center;
+  }
+  .profile-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px; padding: 2rem;
+    backdrop-filter: blur(10px); width: 100%; max-width: 340px;
+  }
+  .profile-avatar {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--teal), #2563eb);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem; color: white; margin-bottom: 1rem;
+    border: 3px solid rgba(13,148,136,0.5);
+  }
+  .profile-card h3 { color: white; font-size: 1.2rem; }
+  .profile-card p { color: rgba(255,255,255,0.55); font-size: 0.8rem; margin-top: 0.25rem; }
+  .skills-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
+  .pill {
+    background: rgba(13,148,136,0.2); border: 1px solid rgba(13,148,136,0.35);
+    color: var(--teal-light); font-size: 0.72rem; font-weight: 500;
+    padding: 0.3rem 0.75rem; border-radius: 100px;
+  }
+  .pill.gold { background: rgba(245,158,11,0.15); border-color: rgba(245,158,11,0.3); color: var(--accent-gold); }
+  .learning-bar { margin-top: 1.5rem; }
+  .bar-label { display: flex; justify-content: space-between; font-size: 0.72rem; color: rgba(255,255,255,0.55); margin-bottom: 0.4rem; }
+  .bar-track { background: rgba(255,255,255,0.1); border-radius: 100px; height: 5px; }
+  .bar-fill { height: 5px; border-radius: 100px; background: linear-gradient(90deg, var(--teal), var(--teal-light)); }
+
+  /* SECTION BASE */
+  section { padding: 5rem 1.5rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-tag {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--teal); margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    color: var(--navy); margin-bottom: 1rem; letter-spacing: -0.02em;
+  }
+  .section-desc { color: var(--muted); font-size: 1rem; line-height: 1.75; max-width: 600px; }
+  .divider { width: 48px; height: 3px; background: var(--teal); border-radius: 2px; margin: 1rem 0 2.5rem; }
+
+  /* ABOUT */
+  #about { background: white; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: start; }
+  .about-left { position: sticky; top: 6rem; }
+  .about-avatar-wrap {
+    width: 180px; height: 180px; border-radius: 20px;
+    background: linear-gradient(135deg, var(--navy), var(--teal));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif; font-size: 4rem; color: white;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 20px 60px rgba(13,148,136,0.2);
+  }
+  .contact-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; }
+  .contact-list li { display: flex; align-items: center; gap: 0.75rem; font-size: 0.875rem; color: var(--slate); }
+  .contact-icon { width: 32px; height: 32px; border-radius: 8px; background: var(--teal-pale); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .about-right p { color: var(--slate); line-height: 1.85; font-size: 1rem; margin-bottom: 1.25rem; }
+  .about-right p strong { color: var(--navy); }
+  .focus-box {
+    background: linear-gradient(135deg, #f0fdf9, #e0f2fe);
+    border: 1px solid #b2f5ea; border-radius: 12px;
+    padding: 1.5rem; margin-top: 1.5rem;
+  }
+  .focus-box h4 { color: var(--navy); font-family: 'DM Serif Display', serif; margin-bottom: 0.75rem; font-size: 1.1rem; }
+  .focus-items { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .focus-item {
+    background: white; border: 1px solid var(--border);
+    color: var(--slate); font-size: 0.8rem; font-weight: 500;
+    padding: 0.35rem 0.85rem; border-radius: 6px;
+  }
+
+  /* SKILLS / TOOLS */
+  #skills { background: #f8fafc; }
+  .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; margin-top: 2.5rem; }
+  .tool-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .tool-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--teal), var(--teal-light));
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .tool-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(13,148,136,0.12); border-color: var(--teal-light); }
+  .tool-card:hover::before { opacity: 1; }
+  .tool-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+  .tool-name { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--navy); margin-bottom: 0.35rem; }
+  .tool-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+  .tool-status {
+    display: inline-block; font-size: 0.7rem; font-weight: 600;
+    padding: 0.2rem 0.6rem; border-radius: 100px; margin-top: 0.75rem;
+    letter-spacing: 0.04em;
+  }
+  .status-done { background: #d1fae5; color: #065f46; }
+  .status-learning { background: #fef3c7; color: #92400e; }
+  .status-soon { background: #e0f2fe; color: #0c4a6e; }
+
+  /* EXPERIENCE */
+  #experience { background: white; }
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 2px; background: linear-gradient(to bottom, var(--teal), transparent);
+  }
+  .timeline-item { position: relative; margin-bottom: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid var(--border); }
+  .timeline-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .timeline-dot {
+    position: absolute; left: -2.45rem; top: 0.25rem;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--teal); border: 3px solid white;
+    box-shadow: 0 0 0 2px var(--teal);
+  }
+  .timeline-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+  .timeline-date { font-size: 0.78rem; font-weight: 600; color: var(--teal); text-transform: uppercase; letter-spacing: 0.08em; }
+  .timeline-org {
+    font-size: 0.78rem; font-weight: 500; color: white;
+    background: var(--navy); padding: 0.2rem 0.65rem; border-radius: 4px;
+  }
+  .timeline-title { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--navy); margin-bottom: 0.6rem; }
+  .timeline-desc { color: var(--slate); font-size: 0.9rem; line-height: 1.75; }
+  .timeline-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+  .tag { background: var(--teal-pale); color: #0f766e; font-size: 0.75rem; font-weight: 500; padding: 0.25rem 0.65rem; border-radius: 4px; }
+
+  /* CERTIFICATIONS */
+  #certifications { background: #f8fafc; }
+  .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin-top: 2.5rem; }
+  .cert-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.5rem;
+    display: flex; gap: 1rem; align-items: flex-start;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .cert-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+  .cert-icon {
+    width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+  }
+  .cert-icon.teal { background: var(--teal-pale); }
+  .cert-icon.gold { background: #fef3c7; }
+  .cert-icon.blue { background: #e0f2fe; }
+  .cert-icon.purple { background: #ede9fe; }
+  .cert-name { font-weight: 600; font-size: 0.9rem; color: var(--navy); margin-bottom: 0.25rem; }
+  .cert-issuer { font-size: 0.78rem; color: var(--muted); }
+  .cert-badge {
+    font-size: 0.68rem; font-weight: 600; padding: 0.2rem 0.55rem; border-radius: 100px;
+    margin-top: 0.4rem; display: inline-block;
+  }
+  .badge-done { background: #d1fae5; color: #065f46; }
+  .badge-upcoming { background: #fef9c3; color: #713f12; }
+
+  /* EDUCATION */
+  #education { background: white; }
+  .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin-top: 2.5rem; }
+  .edu-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.75rem; position: relative; overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .edu-card:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(0,0,0,0.08); }
+  .edu-accent { position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(to bottom, var(--teal), #2563eb); }
+  .edu-level { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.5rem; }
+  .edu-degree { font-family: 'DM Serif Display', serif; font-size: 1.15rem; color: var(--navy); margin-bottom: 0.35rem; }
+  .edu-school { font-size: 0.875rem; color: var(--slate); font-weight: 500; }
+  .edu-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+  .edu-year { font-size: 0.78rem; color: var(--muted); }
+  .edu-gpa { font-size: 0.8rem; font-weight: 600; color: var(--teal); }
+
+  /* CONTACT */
+  #contact {
+    background: linear-gradient(135deg, var(--navy) 0%, #1a3a5c 100%);
+    position: relative; overflow: hidden;
+  }
+  #contact .hero-grid { opacity: 0.5; }
+  .contact-inner { max-width: 700px; margin: 0 auto; text-align: center; position: relative; z-index: 2; }
+  .contact-inner .section-tag { color: var(--teal-light); }
+  .contact-inner .section-title { color: white; }
+  .contact-inner .section-desc { color: rgba(255,255,255,0.65); margin: 0 auto 2.5rem; }
+  .contact-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
+  .contact-card {
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px; padding: 1.25rem; text-align: center;
+    transition: background 0.2s;
+  }
+  .contact-card:hover { background: rgba(255,255,255,0.12); }
+  .contact-card-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .contact-card-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; color: var(--teal-light); text-transform: uppercase; margin-bottom: 0.25rem; }
+  .contact-card-value { font-size: 0.78rem; color: rgba(255,255,255,0.7); word-break: break-word; }
+
+  /* FOOTER */
+  footer {
+    background: #09182d; color: rgba(255,255,255,0.4);
+    text-align: center; padding: 1.5rem; font-size: 0.8rem;
+  }
+  footer span { color: var(--teal-light); }
+
+  /* SCROLL ANIMATIONS */
+  .fade-up {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: white; padding: 1.5rem; border-bottom: 1px solid var(--border); gap: 1.25rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .nav-links.open { display: flex; }
+    .hamburger { display: flex; }
+    .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; text-align: center; }
+    .hero-btns { justify-content: center; }
+    .hero-stats { grid-template-columns: repeat(3, 1fr); }
+    .hero-visual { display: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .about-left { position: static; }
+    .about-avatar-wrap { margin: 0 auto 1.5rem; }
+    .contact-cards { grid-template-columns: 1fr; }
+    .stat-num { font-size: 1.35rem; }
+  }
+  @media (max-width: 480px) {
+    .hero-stats { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
-<body class="bg-gray-900 text-white">
-    <canvas id="space-canvas"></canvas>
-    <div class="content flex flex-col items-center justify-center min-h-screen">
-        <div class="text-center">
-            <h1 class="text-4xl sm:text-6xl md:text-7xl font-semibold mb-4 bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text">
-                Welcome to My Universe
-            </h1>
-            <p class="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
-                Hello, I'm Sneha! This is my little corner of the cosmos, where passion meets the stars.
-            </p>
-            <a href="https://www.linkedin.com/in/melina-pahadi-71a434301/" target="_blank" rel="noopener noreferrer" class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
-                Explore the Cosmos
-            </a>
-        </div>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">Melina <span>Pahadi</span></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Tools</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#contact" class="nav-cta">Contact</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" onclick="toggleNav()">
+      <span></span><span></span><span></span>
     </div>
+  </div>
+</nav>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script>
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('space-canvas') });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setClearColor(0x000000);
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+  <div class="blob1 hero-blob"></div>
+  <div class="blob2 hero-blob"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag">
+        <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><circle cx="4" cy="4" r="4" fill="#14b8a6"/></svg>
+        Open to Opportunities
+      </div>
+      <h1>Turning Data Into <em>Decisions</em></h1>
+      <p class="hero-desc">
+        Aspiring Business Intelligence & Data Analytics professional with a foundation in Excel, Power BI, Tableau, and Agile project management — building skills to bridge data and strategy.
+      </p>
+      <div class="hero-btns">
+        <a href="#skills" class="btn-primary">Explore My Skills</a>
+        <a href="#contact" class="btn-outline">Get in Touch</a>
+      </div>
 
-        // Starfield
-        const starsGeometry = new THREE.BufferGeometry();
-        const starsMaterial = new THREE.PointsMaterial({ color: 0xaaaaaa, size: 1.5, sizeAttenuation: true });
-        const starVertices = [];
-        for (let i = 0; i < 10000; i++) {
-            const x = (Math.random() - 0.5) * 2000;
-            const y = (Math.random() - 0.5) * 2000;
-            const z = -Math.random() * 1000;
-            starVertices.push(x, y, z);
-        }
-        starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
-        const stars = new THREE.Points(starsGeometry, starsMaterial);
-        scene.add(stars);
+    </div>
+    <div class="hero-visual">
+      <div class="profile-card">
+        <div class="profile-avatar">MP</div>
+        <h3>Melina Pahadi</h3>
+        <p>📍 Sukedhara, Kathmandu, Nepal</p>
+        <div class="skills-pills">
+          <span class="pill">Power BI</span>
+          <span class="pill">Excel</span>
+          <span class="pill">Tableau</span>
+          <span class="pill gold">Agile</span>
+          <span class="pill">Data Analytics</span>
+          <span class="pill gold">BI Analyst</span>
+        </div>
+        <div class="learning-bar">
+          <div class="bar-label"><span>Advanced Excel</span><span>85%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:85%"></div></div>
+        </div>
+        <div class="learning-bar" style="margin-top:0.75rem">
+          <div class="bar-label"><span>Power BI</span><span>70%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:70%"></div></div>
+        </div>
+        <div class="learning-bar" style="margin-top:0.75rem">
+          <div class="bar-label"><span>Tableau</span><span>55%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:55%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        // Galaxy
-        const galaxyGeometry = new THREE.BufferGeometry();
-        const galaxyMaterial = new THREE.PointsMaterial({ color: 0x6a1b9a, size: 2, sizeAttenuation: true });
-        const galaxyVertices = [];
-        const spiralArmLength = 400;
-        const spiralArms = 2;
-        const coreRadius = 50;
-        const armWidth = 30;
-        const numPointsPerArm = 200;
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-left fade-up">
+        <div class="about-avatar-wrap">MP</div>
+        <ul class="contact-list">
+          <li>
+            <div class="contact-icon">✉️</div>
+            <span>pahadimelina@gmail.com</span>
+          </li>
+          <li>
+            <div class="contact-icon">📍</div>
+            <span>Sukedhara, Kathmandu, Nepal</span>
+          </li>
+        </ul>
+      </div>
+      <div class="about-right fade-up">
+        <div class="section-tag">About Me</div>
+        <h2 class="section-title">From Business Student to BI Professional</h2>
+        <div class="divider"></div>
+        <p>
+          I'm a <strong>BBA student</strong> currently in my 6th semester, making a deliberate career pivot into <strong>Business Intelligence and Data Analytics</strong>. I believe that every decision an organization makes should be backed by data — and I'm on a mission to be the person who makes that happen.
+        </p>
+        <p>
+          My journey started with a strong academic foundation in business and management, followed by hands-on experience at the <strong>Confederation of Nepalese Industries (CNI)</strong>, where I developed practical skills in data documentation, reporting, and coordination. I've since doubled down on technical upskilling through structured learning paths in Excel, Power BI, Tableau, and Agile methodologies.
+        </p>
+        <p>
+          I'm a <strong>detail-oriented, deadline-driven professional</strong> who combines business understanding with analytical thinking — making me well-positioned for roles in BI analysis, data analytics, and project management.
+        </p>
+        <div class="focus-box">
+          <h4>Current Learning Focus</h4>
+          <div class="focus-items">
+            <span class="focus-item">📊 Advanced Excel</span>
+            <span class="focus-item">📈 Power BI</span>
+            <span class="focus-item">🗂️ Tableau</span>
+            <span class="focus-item">🔄 Agile Methodologies</span>
+            <span class="focus-item">📋 Project Management</span>
+            <span class="focus-item">🧮 Data Modeling</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        for (let i = 0; i < spiralArms; i++) {
-            for (let j = 0; j < numPointsPerArm; j++) {
-                const angle = j * 0.1 + i * (Math.PI * 2 / spiralArms);
-                const radius = coreRadius + (spiralArmLength - coreRadius) * (j / numPointsPerArm);
-                const x = Math.cos(angle) * radius + (Math.random() - 0.5) * armWidth;
-                const y = Math.sin(angle) * radius + (Math.random() - 0.5) * armWidth;
-                const z = (Math.random() - 0.5) * 200;
-                galaxyVertices.push(x, y, z);
-            }
-        }
-        galaxyGeometry.setAttribute('position', new THREE.Float32BufferAttribute(galaxyVertices, 3));
-        const galaxy = new THREE.Points(galaxyGeometry, galaxyMaterial);
-        scene.add(galaxy);
+<!-- SKILLS & TOOLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="fade-up">
+      <div class="section-tag">Skills & Tools</div>
+      <h2 class="section-title">My BI & Analytics Toolkit</h2>
+      <div class="divider"></div>
+      <p class="section-desc">Building a comprehensive skillset across data analytics, visualization, and project management tools used by top BI professionals worldwide.</p>
+    </div>
+    <div class="tools-grid">
+      <div class="tool-card fade-up">
+        <div class="tool-icon">📊</div>
+        <div class="tool-name">Microsoft Excel</div>
+        <div class="tool-desc">Advanced formulas, pivot tables, dashboards, data validation, and automation with macros. Certified via Texas College (2024).</div>
+        <span class="tool-status status-done">✓ Certified</span>
+      </div>
+      <div class="tool-card fade-up">
+        <div class="tool-icon">📉</div>
+        <div class="tool-name">Power BI</div>
+        <div class="tool-desc">Interactive dashboards, DAX measures, data modeling, and business reporting for data-driven insights.</div>
+        <span class="tool-status status-learning">⚡ Actively Learning</span>
+      </div>
+      <div class="tool-card fade-up">
+        <div class="tool-icon">🗂️</div>
+        <div class="tool-name">Tableau</div>
+        <div class="tool-desc">Visual analytics, chart design, calculated fields, and storytelling with data through compelling visual narratives.</div>
+        <span class="tool-status status-learning">⚡ Actively Learning</span>
+      </div>
+      <div class="tool-card fade-up">
+        <div class="tool-icon">🔄</div>
+        <div class="tool-name">Agile Methodologies</div>
+        <div class="tool-desc">Scrum, Kanban, sprint planning, backlog management, and iterative project delivery frameworks.</div>
+        <span class="tool-status status-soon">📚 Coming Soon</span>
+      </div>
+      <div class="tool-card fade-up">
+        <div class="tool-icon">📋</div>
+        <div class="tool-name">Project Management</div>
+        <div class="tool-desc">Jira, Trello, and MS Project for planning, tracking, and coordinating cross-functional projects efficiently.</div>
+        <span class="tool-status status-soon">📚 Coming Soon</span>
+      </div>
+      <div class="tool-card fade-up">
+        <div class="tool-icon">📁</div>
+        <div class="tool-name">Google Sheets</div>
+        <div class="tool-desc">Collaborative data entry, formulas, filtering, and shared reporting workflows across teams.</div>
+        <span class="tool-status status-done">✓ Proficient</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-        camera.position.z = 500;
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="fade-up">
+      <div class="section-tag">Experience</div>
+      <h2 class="section-title">Professional Journey</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="timeline fade-up">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-meta">
+          <span class="timeline-date">2024</span>
+          <span class="timeline-org">CNI — Confederation of Nepalese Industries</span>
+        </div>
+        <div class="timeline-title">Business & Data Intern</div>
+        <div class="timeline-desc">
+          Completed an internship at Nepal's premier industry body, gaining hands-on exposure to business operations, data documentation, and organizational reporting workflows. Supported cross-department coordination, maintained tracking sheets, and contributed to data validation processes used in industry reporting.
+        </div>
+        <div class="timeline-tags">
+          <span class="tag">Data Entry</span>
+          <span class="tag">Reporting</span>
+          <span class="tag">Documentation</span>
+          <span class="tag">Coordination</span>
+          <span class="tag">Excel</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-meta">
+          <span class="timeline-date">2022 – Present</span>
+          <span class="timeline-org">Texas College of Management & IT, Lincoln University</span>
+        </div>
+        <div class="timeline-title">Bachelor of Business Administration (BBA)</div>
+        <div class="timeline-desc">
+          Pursuing a BBA with a growing focus on business intelligence, data analytics, and technology-driven management. Currently in the 6th semester, applying academic knowledge in management, finance, and organizational behavior while upskilling in BI tools alongside coursework.
+        </div>
+        <div class="timeline-tags">
+          <span class="tag">Business Management</span>
+          <span class="tag">Finance</span>
+          <span class="tag">Organizational Behavior</span>
+          <span class="tag">Analytics</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        function animate() {
-            requestAnimationFrame(animate);
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-inner">
+    <div class="fade-up">
+      <div class="section-tag">Certifications</div>
+      <h2 class="section-title">Credentials & Achievements</h2>
+      <div class="divider"></div>
+      <p class="section-desc">A mix of completed certifications and upcoming credentials on my BI learning roadmap — each one building toward a complete analytics skillset.</p>
+    </div>
+    <div class="certs-grid fade-up">
+      <div class="cert-card">
+        <div class="cert-icon teal">📊</div>
+        <div>
+          <div class="cert-name">Advanced Excel Training</div>
+          <div class="cert-issuer">Texas College of Management & IT</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon gold">🏭</div>
+        <div>
+          <div class="cert-name">Internship Completion Certificate</div>
+          <div class="cert-issuer">Confederation of Nepalese Industries (CNI)</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon blue">📈</div>
+        <div>
+          <div class="cert-name">Microsoft Power BI Data Analyst</div>
+          <div class="cert-issuer">Microsoft — PL-300</div>
+          <span class="cert-badge badge-upcoming">⚡ In Progress</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            stars.position.z += 0.1;
-            if (stars.position.z > 500) stars.position.z = -500;
 
-            galaxy.rotation.y += 0.005;
-            galaxy.rotation.x += 0.002;
+<!-- CONTACT -->
+<section id="contact">
+  <div class="hero-grid"></div>
+  <div class="contact-inner">
+    <div class="section-tag">Contact</div>
+    <h2 class="section-title">Let's Work Together</h2>
+    <div class="divider" style="margin: 1rem auto 1.5rem;"></div>
+    <p class="section-desc">I'm actively seeking opportunities in Business Intelligence, Data Analytics, and Project Management. Whether it's an internship, full-time role, or a collaboration — reach out!</p>
+    <a href="mailto:pahadimelina@gmail.com" class="btn-primary" style="display:inline-block;margin-bottom:2rem">Send Me an Email</a>
+    <div class="contact-cards" style="grid-template-columns: repeat(2,1fr); max-width: 480px; margin: 2rem auto 0;">
+      <div class="contact-card">
+        <div class="contact-card-icon">✉️</div>
+        <div class="contact-card-label">Email</div>
+        <div class="contact-card-value">pahadimelina@gmail.com</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-icon">📍</div>
+        <div class="contact-card-label">Location</div>
+        <div class="contact-card-value">Sukedhara, Kathmandu, Nepal</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            renderer.render(scene, camera);
-        }
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <span>Melina Pahadi</span> · Aspiring Business Intelligence Professional · Kathmandu, Nepal</p>
+</footer>
 
-        animate();
+<script>
+  // Mobile nav
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  // Close nav on link click
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+  });
 
-        window.addEventListener('resize', () => {
-            const newWidth = window.innerWidth;
-            const newHeight = window.innerHeight;
-            camera.aspect = newWidth / newHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(newWidth, newHeight);
-        });
-    </script>
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
